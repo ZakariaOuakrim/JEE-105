@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!--
+    Mapping XML pour l'entité Activity.
+-->
+<hibernate-mapping package="entity">
+
+    <class name="Activity" table="Activities">
+
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="nom"         column="nom"/>
+        <property name="description" column="description"/>
+
+        <!--
+            @ManyToOne
+            @JoinColumn(name = "personne_id")
+            fetch="join" = EAGER
+        -->
+        <many-to-one name="personne"
+                     class="Personne"
+                     column="personne_id"
+                     fetch="join"
+                     not-null="false"/>
+
+    </class>
+
+</hibernate-mapping>

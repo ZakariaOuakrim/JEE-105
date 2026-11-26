@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!--
+    Approche 2 : Table per Subclass (1 fichier .hbm.xml → 3 tables : Payment, CashPayment, CreditCardPayment)
+    Utilise <joined-subclass> : chaque sous-classe a sa propre table liée par clé étrangère à Payment.
+-->
+<hibernate-mapping package="entity">
+
+    <class name="Payment" table="Payment">
+
+        <id name="paymentId" column="payment_id">
+            <generator class="native"/>
+        </id>
+
+        <property name="description" column="description"/>
+
+        <!-- Table dédiée pour CashPayment -->
+        <joined-subclass name="CashPayment" table="CashPayment">
+            <key column="payment_id"/>
+            <property name="monnaie" column="monnaie"/>
+        </joined-subclass>
+
+        <!-- Table dédiée pour CreditCardPayment -->
+        <joined-subclass name="CreditCardPayment" table="CreditCardPayment">
+            <key column="payment_id"/>
+            <property name="type" column="card_type"/>
+        </joined-subclass>
+
+    </class>
+
+</hibernate-mapping>

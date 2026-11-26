@@ -1,0 +1,14 @@
+entity\Payment.class
+test\Main.class
+entity\CreditCardPayment.class
+entity\Personne.class
+test\MainPayment.class
+entity\CashPayment.class
+entity\Adresse.class
+entity\Info.class
+dao\IDao.class
+dao\PersonneDao.class
+dao\Dao.class
+entity\Activity.class
+dao\InfoDao.class
+dao\ActivityDao.class

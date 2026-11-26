@@ -1,0 +1,182 @@
+nov. 26, 2026 10:23:00 AM org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate ORM core version 5.6.5.Final
+nov. 26, 2026 10:23:00 AM org.hibernate.boot.jaxb.internal.stax.LocalXmlResourceResolver resolveEntity
+WARN: HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+nov. 26, 2026 10:23:01 AM org.hibernate.annotations.common.reflection.java.JavaReflectionManager <clinit>
+INFO: HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+nov. 26, 2026 10:23:01 AM org.hibernate.boot.jaxb.internal.stax.LocalXmlResourceResolver resolveEntity
+WARN: HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+nov. 26, 2026 10:23:01 AM org.hibernate.boot.jaxb.internal.stax.LocalXmlResourceResolver resolveEntity
+WARN: HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+nov. 26, 2026 10:23:01 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+nov. 26, 2026 10:23:01 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/hibernate_tp5?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false]
+nov. 26, 2026 10:23:01 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001001: Connection properties: {password=****, user=root}
+nov. 26, 2026 10:23:01 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001003: Autocommit mode: false
+nov. 26, 2026 10:23:01 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
+INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
+nov. 26, 2026 10:23:02 AM org.hibernate.dialect.Dialect <init>
+INFO: HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+Hibernate: 
+    
+    alter table Activities 
+       drop 
+       foreign key FK884w8hfca0cndupi79pjee8m
+nov. 26, 2026 10:23:02 AM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@526b2f3e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+Hibernate: 
+    
+    alter table Personnes 
+       drop 
+       foreign key FKcnijp4cka1nujp89ljh3bhi1u
+Hibernate: 
+    
+    drop table if exists Activities
+Hibernate: 
+    
+    drop table if exists Info
+Hibernate: 
+    
+    drop table if exists Personnes
+Hibernate: 
+    
+    create table Activities (
+       id bigint not null auto_increment,
+        nom varchar(255),
+        description varchar(255),
+        personne_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+nov. 26, 2026 10:23:03 AM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@330c1f61] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+Hibernate: 
+    
+    create table Info (
+       id bigint not null auto_increment,
+        observation varchar(255),
+        sexe char(1),
+        age integer,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table Personnes (
+       id_personne bigint not null auto_increment,
+        nom varchar(255) not null,
+        prenom varchar(255) not null,
+        rue varchar(255),
+        ville varchar(255),
+        info_id bigint,
+        primary key (id_personne)
+    ) engine=InnoDB
+Hibernate: 
+    
+    alter table Personnes 
+       add constraint UK_8m56lipeoia97fu1wp2ph463v unique (info_id)
+Hibernate: 
+    
+    alter table Activities 
+       add constraint FK884w8hfca0cndupi79pjee8m 
+       foreign key (personne_id) 
+       references Personnes (id_personne)
+Hibernate: 
+    
+    alter table Personnes 
+       add constraint FKcnijp4cka1nujp89ljh3bhi1u 
+       foreign key (info_id) 
+       references Info (id)
+
+--- Insertion des personnes avec leurs Activit�s ---
+Hibernate: 
+    insert 
+    into
+        Info
+        (observation, sexe, age) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Personnes
+        (nom, prenom, rue, ville, info_id) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Activities
+        (nom, description, personne_id) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Activities
+        (nom, description, personne_id) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Activities
+        (nom, description, personne_id) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Info
+        (observation, sexe, age) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Personnes
+        (nom, prenom, rue, ville, info_id) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Activities
+        (nom, description, personne_id) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        Activities
+        (nom, description, personne_id) 
+    values
+        (?, ?, ?)
+-> Personnes et Activit�s ins�r�es avec succ�s !
+
+--- Liste de toutes les personnes (HQL : FROM Personne) ---
+Hibernate: 
+    select
+        personne0_.id_personne as id_perso1_2_,
+        personne0_.nom as nom2_2_,
+        personne0_.prenom as prenom3_2_,
+        personne0_.rue as rue4_2_,
+        personne0_.ville as ville5_2_,
+        personne0_.info_id as info_id6_2_ 
+    from
+        Personnes personne0_
+nov. 26, 2026 10:23:03 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+INFO: HHH10001008: Cleaning up connection pool [jdbc:mysql://127.0.0.1:3306/hibernate_tp5?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false]
+Exception in thread "main" org.hibernate.LazyInitializationException: could not initialize proxy [entity.Info#1] - no Session
+	at org.hibernate.proxy.AbstractLazyInitializer.initialize(AbstractLazyInitializer.java:176)
+	at org.hibernate.proxy.AbstractLazyInitializer.getImplementation(AbstractLazyInitializer.java:322)
+	at org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor.intercept(ByteBuddyInterceptor.java:45)
+	at org.hibernate.proxy.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:95)
+	at entity.Info$HibernateProxy$iJlLTm4Q.toString(Unknown Source)
+	at java.base/java.lang.String.valueOf(String.java:4213)
+	at java.base/java.lang.StringBuilder.append(StringBuilder.java:173)
+	at entity.Personne.toString(Personne.java:85)
+	at java.base/java.lang.String.valueOf(String.java:4213)
+	at java.base/java.io.PrintStream.println(PrintStream.java:1060)
+	at test.Main.main(Main.java:43)

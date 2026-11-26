@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!--
+    Approche 1 : Table per Class Hierarchy (1 fichier .hbm.xml → 1 seule table "Payment")
+    Utilise <discriminator> pour distinguer CashPayment et CreditCardPayment dans la même table.
+-->
+<hibernate-mapping package="entity">
+
+    <class name="Payment" table="Payment" discriminator-value="PAYMENT">
+
+        <id name="paymentId" column="payment_id">
+            <generator class="native"/>
+        </id>
+
+        <!-- Colonne discriminante qui indique le type réel de la ligne -->
+        <discriminator column="payment_type" type="string"/>
+
+        <property name="description" column="description"/>
+
+        <!-- Sous-classe CashPayment stockée dans la même table Payment -->
+        <subclass name="CashPayment" discriminator-value="CASH">
+            <property name="monnaie" column="monnaie"/>
+        </subclass>
+
+        <!-- Sous-classe CreditCardPayment stockée dans la même table Payment -->
+        <subclass name="CreditCardPayment" discriminator-value="CREDIT_CARD">
+            <property name="type" column="card_type"/>
+        </subclass>
+
+    </class>
+
+</hibernate-mapping>
